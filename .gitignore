@@ -219,3 +219,6 @@ todo.md
 # Bundle
 dist/
 configs/.cache--happypack/
+
+my-yapi/vendors/node_modules/
+my-yapi/vendors/.github/
