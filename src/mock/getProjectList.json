@@ -1,10 +1,13 @@
 {
   "status_code": 1000,
-  "data|0-10": [
-    {
-      "id|regexp": "[a-zA-Z0-9]{6}",
-      "name|regexp": "[a-z_A-Z 0-9]{5,20}",
-      "status|0-2": 0
-    }
-  ]
+  "data": {
+    "rows|0-10": [
+      {
+        "id|regexp": "[a-zA-Z0-9]{6}",
+        "name|regexp": "[a-z_A-Z 0-9]{5,20}",
+        "status|0-2": 0
+      }
+    ],
+    "count|9-100": 0
+  }
 }

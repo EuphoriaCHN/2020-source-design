@@ -12,7 +12,7 @@ axios.interceptors.response.use(
   }
 );
 
-const prefix: string = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:9091/mock/25';
+const prefix: string = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:9091/mock/9';
 
 const request = {
   async get(url: string, query?: any) {

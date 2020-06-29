@@ -37,9 +37,14 @@ class ProjectStore {
 
   // 展示的物品信息（当前页面
   @observable projects: Array<IPROJECT.PROJECT> = [];
+  // 总量（分页用
+  @observable projectsTotalCount: number = 0;
   @action.bound
-  setProjects(projects: Array<IPROJECT.PROJECT>) {
+  setProjects(projects: Array<IPROJECT.PROJECT>, count?: number) {
     this.projects = Object.assign([], projects);
+    if (count || count === 0) {
+      this.projectsTotalCount = count;
+    }
   }
 
   // 全局 currentPage & pageSize

@@ -5,3 +5,8 @@ export type PROJECT = {
   name: string;
   status: ProjectStatus;
 };
+
+export type GET_PROJECT_RES = {
+  rows: Array<PROJECT>;
+  count: number;
+};
