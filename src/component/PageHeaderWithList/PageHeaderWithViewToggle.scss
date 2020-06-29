@@ -1,0 +1,13 @@
+.page-header-with-view-toggle {
+  margin-bottom: 12px;
+  .radio-box {
+    width: 100%;
+    position: relative;
+    height: 32px;
+
+    .radios {
+      position: absolute;
+      right: 0;
+    }
+  }
+}

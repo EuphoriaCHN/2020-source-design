@@ -4,6 +4,7 @@ import { hot } from 'react-hot-loader';
 
 import App from './App.tsx';
 
+import './common/template/base.scss';
 import 'antd/dist/antd.css';
 
 import './i18n';

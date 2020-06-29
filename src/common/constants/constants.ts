@@ -1,0 +1,11 @@
+export const HTTP_STATUS_CODE = {
+  SUCCESS: 200,
+  NOT_FOUND: 404,
+  INTERNAL_ERROR: 500,
+};
+
+export const STATUS_CODE = {
+  SUCCESS: 1000,
+  ERROR: 1001,
+  PERMISSION_DENIED: 1002,
+};
