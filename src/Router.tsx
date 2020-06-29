@@ -6,6 +6,10 @@ import DocumentTitle from 'react-document-title';
 import Platform from 'container/Platform/Platform';
 import About from 'container/About/About';
 import RepairRecord from 'container/RepairRecord/RepairRecord';
+import DestoryRecord from 'container/DestoryRecord/DestoryRecord';
+import BuyRecord from 'container/BuyRecord/BuyRecord';
+import Personal from 'container/Personal/Personal';
+import AuthList from 'container/AuthList/AuthList';
 
 import NoMatch from 'component/NoMatch/NoMatch';
 import PermissionDenied from 'component/PermissionDenied/PermissionDenied';
@@ -28,7 +32,11 @@ const Router: React.FC<IProps> = observer(() => (
                 <Route path="/platform" component={Platform} />
                 <Route path="/permission-denied" component={PermissionDenied} />
                 <Route path="/repair-record" component={RepairRecord} />
+                <Route path="/destory-record" component={DestoryRecord} />
+                <Route path="/buy-record" component={BuyRecord} />
                 <Route path="/about" component={About} />
+                <Route path="/personal" component={Personal} />
+                <Route path="/auth-list" component={AuthList} />
                 <Route exact path="/" component={Platform} />
                 <Route component={NoMatch} />
             </Switch>

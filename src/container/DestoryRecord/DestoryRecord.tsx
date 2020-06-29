@@ -2,16 +2,16 @@ import * as React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import PageHeaderWithViewToggle from 'component/PageHeaderWithList/PageHeaderWithViewToggle';
 
-import './RepairRecord.scss';
+import './DestoryRecord.scss';
 
 type IProps = WithTranslation;
 
-const RepairRecord: React.SFC<IProps> = props => {
+const DestoryRecord: React.SFC<IProps> = props => {
     const render = React.useMemo<JSX.Element>(() => (
         <div className={'euphoria-container'}>
             <PageHeaderWithViewToggle
-                title={props.t('修理记录')}
-                subtitle={props.t('在这里可以看到物品的修理信息')}
+                title={props.t('报废记录')}
+                subtitle={props.t('在这里可以看到物品的报废信息')}
                 disableChangeView
             />
         </div>
@@ -20,4 +20,4 @@ const RepairRecord: React.SFC<IProps> = props => {
     return render;
 };
 
-export default withTranslation()(RepairRecord);
+export default withTranslation()(DestoryRecord);

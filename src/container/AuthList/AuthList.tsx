@@ -2,11 +2,11 @@ import * as React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import PageHeaderWithViewToggle from 'component/PageHeaderWithList/PageHeaderWithViewToggle';
 
-import './RepairRecord.scss';
+import './AuthList.scss';
 
 type IProps = WithTranslation;
 
-const RepairRecord: React.SFC<IProps> = props => {
+const AuthList: React.SFC<IProps> = props => {
     const render = React.useMemo<JSX.Element>(() => (
         <div className={'euphoria-container'}>
             <PageHeaderWithViewToggle
@@ -20,4 +20,4 @@ const RepairRecord: React.SFC<IProps> = props => {
     return render;
 };
 
-export default withTranslation()(RepairRecord);
+export default withTranslation()(AuthList);
