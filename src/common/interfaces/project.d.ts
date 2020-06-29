@@ -4,6 +4,8 @@ export type PROJECT = {
   id: string;
   name: string;
   status: ProjectStatus;
+  createTime: string;
+  updateTime: string;
 };
 
 export type GET_PROJECT_RES = {

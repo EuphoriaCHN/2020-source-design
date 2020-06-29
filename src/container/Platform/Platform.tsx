@@ -21,8 +21,8 @@ const Platform: React.SFC<IProps> = props => {
     () => (
       <div className={'euphoria-container'}>
         <PageHeaderWithViewToggle
-          title={'物品列表'}
-          subtitle={'在这里可以看到物品的详细信息'}
+          title={props.t('物品列表')}
+          subtitle={props.t('在这里可以看到物品的详细信息')}
           onViewChange={setViews.bind(this)}
         />
         {renderDifferentChildComponents}

@@ -7,6 +7,7 @@ import { GET_PROJECT_LIST } from 'api/api';
 import { errHandling } from 'common/utils/util';
 import { GET_PROJECT_RES } from 'common/interfaces/project';
 import { TablePaginationConfig } from 'antd/lib/table/Table';
+import dateformat from 'dateformat';
 
 import { SyncOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
@@ -71,11 +72,20 @@ const PlatformTable: React.SFC<IProps> = observer(props => {
 
   const renderMoreOperation = React.useCallback<() => JSX.Element>(() => <a>{props.t('更多操作')}</a>, []);
 
+  const renderUpdateTime = React.useCallback<(updateTime: number) => string>(updateTime => {
+    const format = {
+      zh: 'yyyy 年 mm 月 dd 日 hh:MM:ss',
+      en: 'mmm dd yyyy hh:MM:ss'
+    }[props.i18n.language === 'zh-CN' ? 'zh' : 'en'];
+    return dateformat(new Date(updateTime), format);
+  }, [props.i18n.language]);
+
   const _columns = React.useMemo(
     () => [
       { title: 'ID', dataIndex: 'id', key: 'id', render: renderSimpleString },
       { title: props.t('物品名称'), dataIndex: 'name', key: 'name', render: renderSimpleString },
       { title: props.t('状态'), dataIndex: 'status', key: 'status', render: renderProjectStatus },
+      { title: props.t('更新时间'), dataIndex: 'updateTime', key: 'updateTime', render: renderUpdateTime },
       { title: props.t('操作'), key: 'action', render: renderMoreOperation },
     ],
     [props.i18n.language]
