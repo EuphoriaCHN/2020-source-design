@@ -5,7 +5,7 @@ const SOURCE_PATH = path.resolve(__dirname, '../../', 'src', 'common', 'locales'
 const cf = {
   sourceCodePath: SOURCE_PATH, // 源代碼路徑\\pages
   skipEnglishKey: true, // 當key為全英文時,是否跳過翻譯
-  languages: ['en-US', 'zh-CN'], // 需要翻譯的語言
+  languages: ['en-US', 'zh-CN', 'ja', 'ko'], // 需要翻譯的語言
   patterns: {
     0: /(?<=\$t(\s*)\((\s*)("|'))[^'|"]+/g,
   },

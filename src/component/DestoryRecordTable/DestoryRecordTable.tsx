@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { Table, message } from 'antd';
-import { GET_DESTORY_LIST } from 'api/api';
+import { Table, message, Popconfirm } from 'antd';
+import { GET_DESTORY_LIST, REPAIR_PROJECTS_BY_ID } from 'api/api';
 import { errHandling } from 'common/utils/util';
 import { GET_RES_WITH_ROWS, DESTORY } from 'common/interfaces/project';
 import { TablePaginationConfig } from 'antd/lib/table/Table';
@@ -47,7 +47,36 @@ const DestoryRecordTable: React.SFC<IProps> = props => {
 
   const renderSimpleString = React.useCallback<(value: string) => string>(value => value, []);
 
-  const renderMoreOperation = React.useCallback<() => JSX.Element>(() => <a>{props.t('修复')}</a>, []);
+  const handleEnsureRepairProject = React.useCallback<(item: DESTORY) => void>(item => {
+    setLoading(true);
+
+    errHandling(REPAIR_PROJECTS_BY_ID, { id: item.projectId })
+      .then(
+        () => {
+          message.success(props.t('修复成功'));
+          loadData();
+        },
+        reason => {
+          message.error(props.t('修复失败'));
+          console.error(reason);
+        }
+      )
+      .finally(setLoading.bind(this, false));
+  }, []);
+
+  const renderMoreOperation = React.useCallback<(record: DESTORY) => JSX.Element>(
+    record => (
+      <Popconfirm
+        title={props.t('确认修复 "{{$projectName}}" 吗？', { $projectName: record.name })}
+        onConfirm={handleEnsureRepairProject.bind(this, record)}
+        okText={props.t('确认')}
+        cancelText={props.t('取消')}
+      >
+        <a>{props.t('修复')}</a>
+      </Popconfirm>
+    ),
+  [props.i18n.language]
+  );
 
   const renderUpdateTime = React.useCallback<(updateTime: number) => string>(
     updateTime => {

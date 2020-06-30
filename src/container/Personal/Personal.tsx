@@ -53,7 +53,7 @@ const Personal: React.SFC<IProps> = observer(props => {
         />
       </React.Fragment>
     ),
-    [user, changePasswordModalVisible]
+    [user, changePasswordModalVisible, props.i18n.language]
   );
 
   return render;

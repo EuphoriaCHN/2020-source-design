@@ -19,7 +19,7 @@ const DestoryRecord: React.SFC<IProps> = props => {
         <DestoryRecordTable />
       </div>
     ),
-    []
+    [props.i18n.language]
   );
 
   return render;

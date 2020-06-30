@@ -24,6 +24,7 @@ const Platform: React.SFC<IProps> = props => {
           title={props.t('物品列表')}
           subtitle={props.t('在这里可以看到物品的详细信息')}
           onViewChange={setViews.bind(this)}
+          disableChangeView
         />
         {renderDifferentChildComponents}
       </div>

@@ -18,7 +18,7 @@ module.exports = {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     trans: false,
-    lngs: ['zh-CN', 'en-US'],
+    lngs: ['zh-CN', 'en-US', 'ja', 'ko'],
     defaultLng: 'zh',
     resource: {
       loadPath: './src/common/locales/{{lng}}.json',

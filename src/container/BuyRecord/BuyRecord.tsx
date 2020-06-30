@@ -19,7 +19,7 @@ const BuyRecord: React.SFC<IProps> = props => {
         <BuyRecordTable />
       </div>
     ),
-    []
+    [props.i18n.language]
   );
 
   return render;

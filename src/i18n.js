@@ -12,6 +12,8 @@ import { initReactI18next } from 'react-i18next';
 
 import enUS from './common/locales/en-Us.json';
 import zhCN from './common/locales/zh-CN.json';
+import ja from './common/locales/ja.json';
+import ko from './common/locales/ko.json';
 
 const detectorOptions = {
   order: ['cookie', 'querystring', 'navigator', 'localStorage', 'htmlTag', 'path', 'subdomain'],
@@ -41,7 +43,13 @@ i18n
       },
       'zh-CN': {
         translation: zhCN,
-      }
+      },
+      ja: {
+        translation: ja,
+      },
+      ko: {
+        translation: ko,
+      },
     },
     detection: detectorOptions,
   });

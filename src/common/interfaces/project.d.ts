@@ -25,11 +25,13 @@ export type DESTORY = {
 };
 
 export type BUY = {
+  id: number;
   creator: string;
   auther: string;
   projectName: string;
   status: BuyStatus;
   rejectReason: string | null;
+  buyReason: string;
   updateTime: string;
 };
 

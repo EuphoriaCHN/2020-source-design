@@ -19,7 +19,7 @@ const RepairRecord: React.SFC<IProps> = props => {
         <RepairRecordTable />
       </div>
     ),
-    []
+    [props.i18n.language]
   );
 
   return render;

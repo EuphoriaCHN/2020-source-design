@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { Table, Tag, message } from 'antd';
+import { Table, Tag, message, Button, Popconfirm } from 'antd';
 import { observer } from 'mobx-react';
 import Project from 'store/ProjectStore';
-import { GET_PROJECT_LIST } from 'api/api';
+import { GET_PROJECT_LIST, DESTORY_PROJECT_BY_ID } from 'api/api';
 import { errHandling } from 'common/utils/util';
 import { GET_RES_WITH_ROWS, PROJECT } from 'common/interfaces/project';
 import { TablePaginationConfig } from 'antd/lib/table/Table';
@@ -73,7 +73,39 @@ const PlatformTable: React.SFC<IProps> = observer(props => {
     return element;
   }, []);
 
-  const renderMoreOperation = React.useCallback<() => JSX.Element>(() => <a>{props.t('更多操作')}</a>, []);
+  const handleDestoryProjectsById = React.useCallback<(id: number) => void>(id => {
+    setLoading(true);
+
+    errHandling(DESTORY_PROJECT_BY_ID, { id })
+      .then(
+        () => {
+          message.success(props.t('报废成功'));
+          loadData();
+        },
+        reason => {
+          message.error(props.t('报废失败'));
+          console.error(reason);
+        }
+      )
+      .finally(setLoading.bind(this, false));
+  }, []);
+
+  const renderMoreOperation = React.useCallback<(record: PROJECT) => JSX.Element>(
+    record => (
+      <Popconfirm
+        title={props.t('确定报废物品 {{$name}} ？', { $name: record.name })}
+        okText={props.t('确定')}
+        cancelText={props.t('取消')}
+        okButtonProps={{ danger: true, type: 'default' }}
+        onConfirm={handleDestoryProjectsById.bind(this, record.id)}
+      >
+        <Button type="text" danger icon={<CloseCircleOutlined />} style={{ padding: 0 }}>
+          {props.t('报废')}
+        </Button>
+      </Popconfirm>
+    ),
+  [props.i18n.language]
+  );
 
   const renderUpdateTime = React.useCallback<(updateTime: number) => string>(
     updateTime => {

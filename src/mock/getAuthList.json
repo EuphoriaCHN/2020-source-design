@@ -3,6 +3,7 @@
   "data": {
     "rows|0-10": [
       {
+        "id": "@integer",
         "creator|regexp": "[a-zA-Z0-9]{6}",
         "auther|regexp": "[a-zA-Z0-9]{6}",
         "status|0-2": 0,
