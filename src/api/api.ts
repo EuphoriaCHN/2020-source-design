@@ -12,7 +12,7 @@ axios.interceptors.response.use(
   }
 );
 
-const prefix: string = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:9091/mock/9';
+const prefix: string = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:9091/mock/25';
 
 const request = {
   async get(url: string, query?: any) {
@@ -37,3 +37,9 @@ const request = {
  */
 export const GET_PROJECT_LIST = async (query: { limit: number; offet: number; searchName: string }) =>
   request.get('/project/getProjectList', query);
+
+/**
+ * 获取维修列表
+ */
+export const GET_REPAIR_LIST = async (query: { limit: number; offset: number }) =>
+  request.get('/project/getRepairList', query);
