@@ -88,6 +88,11 @@ export const PROMISE_SOME_AUTH_REQUEST = async (query: { id: number; reason: boo
 export const CHECK_LOGIN = async () => request.get('/auth/checkLogin', {});
 
 /**
+ * 登录
+ */
+export const LOGIN = async (query: { userName: string; password: string }) => request.post('/auth/login', query);
+
+/**
  * 登出
  */
 export const LOGOUT = async () => request.get('/auth/logout', {});

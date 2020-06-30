@@ -10,7 +10,7 @@ import Header from './component/Header/Header';
 import Router from './Router';
 import Footer from './component/Footer/Footer';
 import Sider from './component/Sider/Sider';
-// import LoginWrapper from './component/LoginWrapper/LoginWrapper';
+import LoginWrapper from './component/LoginWrapper/LoginWrapper';
 
 type IProps = H.History;
 
@@ -29,5 +29,5 @@ const App: React.FC<IProps> = (props: IProps): React.ReactElement => (
   </ConfigProvider>
 );
 
-// export default LoginWrapper(App);
-export default App;
+export default LoginWrapper(App);
+// export default App;

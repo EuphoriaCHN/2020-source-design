@@ -24,38 +24,39 @@ export const errHandling = (
   fetchMethod: (props: IProps) => Promise<AxiosResponse<RESPONSE_DATA>> | Promise<AxiosResponse<RESPONSE_DATA>>,
   props?: IProps,
   errMsg?: string
-): Promise<unknown> => new Promise((resolve, reject) =>
-  fetchMethod(props || {}).then(
-    value => {
-      if (value.status !== HTTP_STATUS_CODE.SUCCESS) {
-        message.error(value.data);
-        console.error(value);
-        reject();
-        return;
+): Promise<unknown> =>
+  new Promise((resolve, reject) =>
+    fetchMethod(props || {}).then(
+      value => {
+        if (value.status !== HTTP_STATUS_CODE.SUCCESS) {
+          message.error(value.data);
+          console.error(value);
+          reject();
+          return;
+        }
+        const { status_code, e } = value.data;
+        switch (status_code) {
+          case STATUS_CODE.PERMISSION_DENIED:
+            message.error('未登录！');
+            reject(value.data);
+            break;
+          case STATUS_CODE.SUCCESS:
+            resolve(value.data.data);
+            break;
+          case STATUS_CODE.ERROR:
+          default:
+            message.error(errMsg || JSON.stringify(e) || 'Internal Error!');
+            console.log(e);
+            reject(errMsg || e);
+            break;
+        }
+      },
+      reason => {
+        message.error(reason);
+        reject(reason);
       }
-      const { status_code, e } = value.data;
-      switch (status_code) {
-        case STATUS_CODE.PERMISSION_DENIED:
-          message.error('未登录！');
-          reject(value.data);
-          break;
-        case STATUS_CODE.SUCCESS:
-          resolve(value.data.data);
-          break;
-        case STATUS_CODE.ERROR:
-        default:
-          message.error(errMsg || JSON.stringify(e));
-          console.log(e);
-          reject(errMsg || e);
-          break;
-      }
-    },
-    reason => {
-      message.error(reason);
-      reject(reason);
-    }
-  )
-);
+    )
+  );
 
 /**
  * 防抖

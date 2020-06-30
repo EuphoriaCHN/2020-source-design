@@ -62,7 +62,7 @@ const Header: React.SFC<IProps> = observer(props => {
       // await errHandling(LOGOUT);
       message.success(props.t('登出成功'));
       setLogoutLoading(false);
-      setTimeout(() => (window.location.href = '/question'), 1000);
+      setTimeout(() => window.location.reload(), 1000);
     } catch (e) {
       message.error(props.t('糟糕...服务器打瞌睡了...'));
       setLogoutLoading(false);
@@ -77,8 +77,8 @@ const Header: React.SFC<IProps> = observer(props => {
       <span>{ProjectStore.user.userName}</span>
     </React.Fragment>
   ) : (
-      <span>{props.t('未登录')}</span>
-    );
+    <span>{props.t('未登录')}</span>
+  );
 
   const getLogOutButton: React.ReactElement = _hasUser ? (
     <Popconfirm

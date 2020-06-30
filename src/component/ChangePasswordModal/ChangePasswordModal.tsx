@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FieldData } from 'rc-field-form/lib/interface';
-import { LOGOUT, CHECK_LOGIN } from 'api/api';
+import { LOGOUT } from 'api/api';
 
 import { Modal, Form, Input, message } from 'antd';
 import { errHandling } from 'common/utils/util';
 import projectStore from 'store/ProjectStore';
-import { STATUS_CODE } from 'common/constants/constants';
 
 interface IProps extends WithTranslation {
   visible: boolean;
