@@ -8,11 +8,6 @@ export type PROJECT = {
   updateTime: string;
 };
 
-export type GET_PROJECT_RES = {
-  rows: Array<PROJECT>;
-  count: number;
-};
-
 export type REPAIR = {
   id: string;
   name: string;

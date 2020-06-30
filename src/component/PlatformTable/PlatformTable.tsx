@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import Project from 'store/ProjectStore';
 import { GET_PROJECT_LIST } from 'api/api';
 import { errHandling } from 'common/utils/util';
-import { GET_PROJECT_RES } from 'common/interfaces/project';
+import { GET_RES_WITH_ROWS, PROJECT } from 'common/interfaces/project';
 import { TablePaginationConfig } from 'antd/lib/table/Table';
 import dateformat from 'dateformat';
 
@@ -24,23 +24,26 @@ type IProps = WithTranslation;
 const PlatformTable: React.SFC<IProps> = observer(props => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  const loadData = React.useCallback<(pagesize?: number, currentPage?: number) => void>((pagesize, currentPage) => {
-    setLoading(true);
-    const limit: number = pagesize || Project.globalPageSize;
-    const offset: number = ((currentPage || Project.globalCurrentPage) - 1) * limit;
+  const loadData = React.useCallback<(pagesize?: number, currentPage?: number) => void>(
+    (pagesize, currentPage) => {
+      setLoading(true);
+      const limit: number = pagesize || Project.globalPageSize;
+      const offset: number = ((currentPage || Project.globalCurrentPage) - 1) * limit;
 
-    errHandling(GET_PROJECT_LIST, { limit, offset, searchName: '' })
-      .then(
-        (value: GET_PROJECT_RES) => {
-          Project.setProjects(value.rows, value.count);
-        },
-        reason => {
-          message.error(props.t('糟糕...服务器打瞌睡了...'));
-          console.error(reason);
-        }
-      )
-      .finally(setLoading.bind(this, false));
-  }, [Project.globalCurrentPage, Project.globalPageSize]);
+      errHandling(GET_PROJECT_LIST, { limit, offset, searchName: '' })
+        .then(
+          (value: GET_RES_WITH_ROWS<PROJECT>) => {
+            Project.setProjects(value.rows, value.count);
+          },
+          reason => {
+            message.error(props.t('糟糕...服务器打瞌睡了...'));
+            console.error(reason);
+          }
+        )
+        .finally(setLoading.bind(this, false));
+    },
+  [Project.globalCurrentPage, Project.globalPageSize]
+  );
 
   React.useEffect(() => {
     loadData();
@@ -72,13 +75,16 @@ const PlatformTable: React.SFC<IProps> = observer(props => {
 
   const renderMoreOperation = React.useCallback<() => JSX.Element>(() => <a>{props.t('更多操作')}</a>, []);
 
-  const renderUpdateTime = React.useCallback<(updateTime: number) => string>(updateTime => {
-    const format = {
-      zh: 'yyyy 年 mm 月 dd 日 hh:MM:ss',
-      en: 'mmm dd yyyy hh:MM:ss'
-    }[props.i18n.language === 'zh-CN' ? 'zh' : 'en'];
-    return dateformat(new Date(updateTime), format);
-  }, [props.i18n.language]);
+  const renderUpdateTime = React.useCallback<(updateTime: number) => string>(
+    updateTime => {
+      const format = {
+        zh: 'yyyy 年 mm 月 dd 日 hh:MM:ss',
+        en: 'mmm dd yyyy hh:MM:ss',
+      }[props.i18n.language === 'zh-CN' ? 'zh' : 'en'];
+      return dateformat(new Date(updateTime), format);
+    },
+  [props.i18n.language]
+  );
 
   const _columns = React.useMemo(
     () => [
@@ -97,26 +103,32 @@ const PlatformTable: React.SFC<IProps> = observer(props => {
     loadData(pageSize, page);
   }, []);
 
-  const renderPaginationTotal = React.useCallback<
-    (total: number, range: [number, number]) => React.ReactNode
-  >((total, range) => (
-    <span>{props.t('第 {{start}} 到 {{end}} 条，共 {{total}} 条', {
-      start: range[0],
-      end: range[1],
-      total
-    })}</span>
-  ), []);
+  const renderPaginationTotal = React.useCallback<(total: number, range: [number, number]) => React.ReactNode>(
+    (total, range) => (
+      <span>
+        {props.t('第 {{start}} 到 {{end}} 条，共 {{total}} 条', {
+          start: range[0],
+          end: range[1],
+          total,
+        })}
+      </span>
+    ),
+  []
+  );
 
-  const _pagination = React.useMemo<TablePaginationConfig>(() => ({
-    total: Project.projectsTotalCount,
-    pageSize: Project.globalPageSize,
-    current: Project.globalCurrentPage,
-    showTotal: renderPaginationTotal,
-    defaultCurrent: 1,
-    defaultPageSize: 10,
-    onChange: handlePaginate,
-    showSizeChanger: false, // TODO: AntD 使用感--
-  }), [Project.projects, Project.globalCurrentPage, Project.globalPageSize, Project.projectsTotalCount]);
+  const _pagination = React.useMemo<TablePaginationConfig>(
+    () => ({
+      total: Project.projectsTotalCount,
+      pageSize: Project.globalPageSize,
+      current: Project.globalCurrentPage,
+      showTotal: renderPaginationTotal,
+      defaultCurrent: 1,
+      defaultPageSize: 10,
+      onChange: handlePaginate,
+      showSizeChanger: false, // TODO: AntD 使用感--
+    }),
+    [Project.projects, Project.globalCurrentPage, Project.globalPageSize, Project.projectsTotalCount]
+  );
 
   const render = React.useMemo<JSX.Element>(
     () => <Table loading={loading} columns={_columns} dataSource={Project.projects} pagination={_pagination} />,

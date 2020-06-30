@@ -9,12 +9,6 @@ import dateformat from 'dateformat';
 
 import './RepairRecordTable.scss';
 
-export enum RepairStatus {
-  AUTHING = 0, // 审核中
-  RESOLVE = 1, // 审核通过
-  REJECT = 2, // 审核不通过
-}
-
 type IProps = WithTranslation;
 
 const RepairRecordTable: React.SFC<IProps> = props => {
