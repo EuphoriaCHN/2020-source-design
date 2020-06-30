@@ -1,4 +1,5 @@
 import { ProjectStatus } from 'component/PlatformTable/PlatformTable';
+import { BuyStatus } from 'component/BuyRecordTable/BuyRecordTable';
 
 export type PROJECT = {
   id: string;
@@ -21,6 +22,15 @@ export type DESTORY = {
   name: string;
   createTime: string;
   reason: string;
+};
+
+export type BUY = {
+  creator: string;
+  auther: string;
+  projectName: string;
+  status: BuyStatus;
+  rejectReason: string | null;
+  updateTime: string;
 };
 
 export type GET_RES_WITH_ROWS<T> = {

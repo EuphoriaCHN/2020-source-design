@@ -32,20 +32,31 @@ const request = {
   },
 };
 
+type PAGINATE = {
+  limit: number;
+  offet: number;
+};
+
+interface PAGINATE_VS_SEARCH extends PAGINATE {
+  searchName?: string;
+}
+
 /**
  * 获取物品列表
  */
-export const GET_PROJECT_LIST = async (query: { limit: number; offet: number; searchName: string }) =>
-  request.get('/project/getProjectList', query);
+export const GET_PROJECT_LIST = async (query: PAGINATE_VS_SEARCH) => request.get('/project/getProjectList', query);
 
 /**
  * 获取维修列表
  */
-export const GET_REPAIR_LIST = async (query: { limit: number; offset: number }) =>
-  request.get('/project/getRepairList', query);
+export const GET_REPAIR_LIST = async (query: PAGINATE) => request.get('/project/getRepairList', query);
 
 /**
  * 获取报废列表
  */
-export const GET_DESTORY_LIST = async (query: { limit: number; offset: number }) =>
-  request.get('/project/getDestoryList', query);
+export const GET_DESTORY_LIST = async (query: PAGINATE) => request.get('/project/getDestoryList', query);
+
+/**
+ * 获取购买列表
+ */
+export const GET_BUY_LIST = async (query: PAGINATE) => request.get('/project/getBuyList', query);
