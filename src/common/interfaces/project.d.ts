@@ -16,6 +16,13 @@ export type REPAIR = {
   updateTime: string;
 };
 
+export type DESTORY = {
+  projectId: string;
+  name: string;
+  createTime: string;
+  reason: string;
+};
+
 export type GET_RES_WITH_ROWS<T> = {
   rows: Array<T>;
   count: number;

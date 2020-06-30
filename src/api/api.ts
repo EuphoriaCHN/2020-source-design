@@ -43,3 +43,9 @@ export const GET_PROJECT_LIST = async (query: { limit: number; offet: number; se
  */
 export const GET_REPAIR_LIST = async (query: { limit: number; offset: number }) =>
   request.get('/project/getRepairList', query);
+
+/**
+ * 获取报废列表
+ */
+export const GET_DESTORY_LIST = async (query: { limit: number; offset: number }) =>
+  request.get('/project/getDestoryList', query);
