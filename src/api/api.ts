@@ -95,4 +95,9 @@ export const LOGOUT = async () => request.get('/auth/logout', {});
 /**
  * 修改用户密码
  */
-export const CHANGE_PASSWORD = async (body: any) => request.post('/user/changePassword', body);
+export const CHANGE_PASSWORD = async (body: {
+  id: number;
+  oldPassword: string;
+  account: string;
+  newPassword: string;
+}) => request.post('/user/changePassword', body);

@@ -36,7 +36,6 @@ const BuyRecordTable: React.SFC<IProps> = props => {
         .then(
           (value: GET_RES_WITH_ROWS<BUY>) => {
             setData(value.rows);
-            console.log(value.rows);
             setTotal(value.count);
           },
           reason => {

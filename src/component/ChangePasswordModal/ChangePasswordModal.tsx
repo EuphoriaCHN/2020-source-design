@@ -35,23 +35,22 @@ const ChangePasswordModal: React.FC<IProps> = props => {
       return;
     }
     setLoading(true);
-    props.onOk(oldPassword, newPassword).then(async (value: string) => {
-      setLoading(false);
-      if (value.toUpperCase() !== 'SUCCESS') {
-        message.error(props.t('旧密码输入错误！'));
-        return;
-      }
-      message.success(props.t('密码修改成功，请重新登录'));
-      await errHandling(LOGOUT); // 注销，后台清空 Redis 相关
-      projectStore.setUser(null); // 清空 Store
-      await errHandling(CHECK_LOGIN).then(null, (reason: any) => {
-        // 重新获取 Token
-        if (reason.status_code && reason.status_code === STATUS_CODE.PERMISSION_DENIED) {
-          window.location.href = reason.data;
+    props.onOk(oldPassword, newPassword).then(
+      async (value: string) => {
+        setLoading(false);
+        if (value.toUpperCase() !== 'SUCCESS') {
+          message.error(props.t('旧密码输入错误！'));
           return;
         }
-      });
-    });
+        message.success(props.t('密码修改成功，请重新登录'));
+        await errHandling(LOGOUT); // 注销，后台清空 Redis 相关
+        projectStore.setUser(null); // 清空 Store
+        window.location.reload(); // 强刷
+      },
+      reason => {
+        message.error(JSON.stringify(reason));
+      }
+    );
   };
 
   const onFieldsChange = (changedFileds: Array<FieldData>, allFields: Array<FieldData>) => {

@@ -18,13 +18,17 @@ const Personal: React.SFC<IProps> = observer(props => {
 
   const handleResetPassword = async (oldPassword: string, newPassword: string): Promise<unknown> =>
     errHandling(CHANGE_PASSWORD, {
+      id: user.id,
       account: user.account,
       oldPassword,
       newPassword,
-    }).then((value: string) => {
-      setChangePasswordModalVisible(false);
-      return value;
-    });
+    }).then(
+      (value: string) => {
+        setChangePasswordModalVisible(false);
+        return value;
+      },
+      reason => reason
+    );
 
   const render = React.useMemo<JSX.Element>(
     () => (
@@ -47,7 +51,7 @@ const Personal: React.SFC<IProps> = observer(props => {
           </div>
         </div>
         <ChangePasswordModal
-          onOk={handleResetPassword}
+          onOk={handleResetPassword.bind(this)}
           onCancel={setChangePasswordModalVisible.bind(this, false)}
           visible={changePasswordModalVisible}
         />

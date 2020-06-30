@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ConfigProvider, Layout } from 'antd';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import * as H from 'history';
 
 // Antd 组件国际化
@@ -16,7 +16,7 @@ type IProps = H.History;
 
 const App: React.FC<IProps> = (props: IProps): React.ReactElement => (
   <ConfigProvider locale={antdLocale}>
-    <BrowserRouter>
+    <HashRouter>
       <Layout>
         <Sider />
         <Layout className={'container'}>
@@ -25,7 +25,7 @@ const App: React.FC<IProps> = (props: IProps): React.ReactElement => (
           <Footer />
         </Layout>
       </Layout>
-    </BrowserRouter>
+    </HashRouter>
   </ConfigProvider>
 );
 
