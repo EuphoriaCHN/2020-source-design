@@ -60,3 +60,18 @@ export const GET_DESTORY_LIST = async (query: PAGINATE) => request.get('/project
  * 获取购买列表
  */
 export const GET_BUY_LIST = async (query: PAGINATE) => request.get('/project/getBuyList', query);
+
+/**
+ * 鉴权
+ */
+export const CHECK_LOGIN = async () => request.get('/auth/checkLogin', {});
+
+/**
+ * 登出
+ */
+export const LOGOUT = async () => request.get('/auth/logout', {});
+
+/**
+ * 修改用户密码
+ */
+export const CHANGE_PASSWORD = async (body: any) => request.post('/user/changePassword', body);

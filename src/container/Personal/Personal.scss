@@ -1,0 +1,32 @@
+.container-personal {
+  margin-top: 20px;
+}
+
+.user-name {
+  display: flex;
+  justify-content: space-between;
+  > span {
+    display: inline-block;
+  }
+
+  .boy {
+    color: blue;
+  }
+
+  .girl {
+    color: pink;
+  }
+}
+
+.account {
+  > span {
+    display: inline-block;
+    margin-right: 8px;
+  }
+}
+
+.reset-password-box {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
