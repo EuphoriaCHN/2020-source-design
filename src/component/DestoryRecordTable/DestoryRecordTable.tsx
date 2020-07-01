@@ -66,7 +66,7 @@ const DestoryRecordTable: React.SFC<IProps> = props => {
   const renderMoreOperation = React.useCallback<(record: DESTORY) => JSX.Element>(
     record => (
       <Popconfirm
-        title={props.t('确认修复 "{{$projectName}}" 吗？', { $projectName: record.name })}
+        title={props.t("确认修复 '{{$projectName}}' 吗？", { $projectName: record.name })}
         onConfirm={handleEnsureRepairProject.bind(this, record)}
         okText={props.t('确认')}
         cancelText={props.t('取消')}
