@@ -1,5 +1,6 @@
 export const mock = {
   '/project/getProjectList': true,
+  '/project/addProject': true,
   '/project/getRepairList': true,
   '/project/getDestoryList': true,
   '/project/destoryProjectById': true,

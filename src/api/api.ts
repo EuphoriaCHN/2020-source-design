@@ -56,6 +56,11 @@ interface PAGINATE_VS_SEARCH extends PAGINATE {
 export const GET_PROJECT_LIST = async (query: PAGINATE_VS_SEARCH) => request.get('/project/getProjectList', query);
 
 /**
+ * 添加物品
+ */
+export const ADD_PROJECT = async (query: { projectName: string }) => request.get('/project/addProject', query);
+
+/**
  * 获取维修列表
  */
 export const GET_REPAIR_LIST = async (query: PAGINATE) => request.get('/project/getRepairList', query);
