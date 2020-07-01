@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { mock, BAO_INTERFACE, MOCK_INTERFACE } from './mockApi';
 
 axios.interceptors.response.use(
   function (response) {
@@ -12,13 +13,21 @@ axios.interceptors.response.use(
   }
 );
 
-const prefix: string = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:9091/mock/25';
+const getUrl = (path: string): string => {
+  if (mock[path]) {
+    return `${MOCK_INTERFACE}${path}`;
+  }
+  if (process.env.NODE_ENV === 'production') {
+    return path;
+  }
+  return `${BAO_INTERFACE}${path}`;
+};
 
 const request = {
   async get(url: string, query?: any) {
     return axios({
       method: 'get',
-      url: `${prefix}${url}`,
+      url: getUrl(url),
       params: query,
     });
   },
@@ -26,7 +35,7 @@ const request = {
   post(url: string, body?: any) {
     return axios({
       method: 'post',
-      url: `${prefix}${url}`,
+      url: getUrl(url),
       data: body,
     });
   },
@@ -80,7 +89,7 @@ export const GET_AUTH_LIST = async (query: PAGINATE) => request.get('/project/ge
  * 通过 / 拒绝某个审核
  */
 export const PROMISE_SOME_AUTH_REQUEST = async (query: { id: number; reason: boolean }) =>
-  request.get('/project/getAuthList', query);
+  request.get('/project/promiseSomeAuthRequest', query);
 
 /**
  * 鉴权

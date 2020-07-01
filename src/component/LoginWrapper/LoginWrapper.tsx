@@ -8,16 +8,17 @@ interface IProps {}
 
 function LoginWrapper(Component: typeof React.Component | React.FC): (props: IProps) => React.ReactElement {
   function Login(props: IProps): React.ReactElement {
-    const login = async (): Promise<unknown> => errHandling(CHECK_LOGIN).then(
-      (value: any) => {
-        if (value && typeof value === 'object') {
-          ProjectStore.setUser(value);
+    const login = async (): Promise<unknown> =>
+      errHandling(CHECK_LOGIN).then(
+        (value: any) => {
+          if (value && typeof value === 'object') {
+            ProjectStore.setUser(value);
+          }
+        },
+        (reason: any) => {
+          window.location.hash = 'login';
         }
-      },
-      (reason: any) => {
-        window.location.hash = 'login';
-      }
-    );
+      );
 
     React.useEffect(() => {
       login();
